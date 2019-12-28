@@ -1,7 +1,7 @@
 # OSMC-LEDFX-WLED
 OSMC with LEDFX and WLED
 
-Hi all. So this is a short tutorial for getting LEDFX to work with OSMC on a Raspberry Pi.
+Hi all. So this is a short-ish tutorial for getting LEDFX to work with OSMC on a Raspberry Pi.
 
 Now a note to all, I used a raspberry pi zero and a pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and i reccomend that you choose a more powerful raspberry pi for this project. 
 Also to note that some of these options will be different depending the type of device you have and the configuration. An example of this is if you have the inbuilt audio out in raspberry pi 1,2,3 etc and will affect the numbering of some configurations
@@ -26,13 +26,13 @@ Hardware pre-requisites
 Software pre-requisites
 * WLED on esp(https://github.com/Aircoookie/WLED) with E1.31 enabled
 * OSMC on Raspberry Pi (https://osmc.tv/download/) (Click disk images down the bottom to download Pi image depnding on the device you own
-* 
+* Putty to ssh into it
 
 
-1. Loopback Module
+1. Load module at boot
 In terminal (I used PUTTY)
 (`user:osmc\pass:osmc`) You should change password but perhaps after we are done configuring since we will need to restart many times)
-2. Load module at boot
+NOTE: Most of what we need to do must be done via ssh and not on the raspberry pi terminal. If you need to debug or access osmc terminal via pi, press esc when showing the ommc symbol on boot or OSMC exit.
 * `sudo cd nano /etc/modules`
 * Add `snd-aloop`
 * Save and close (Ctrl+X then Y then enter)
@@ -51,15 +51,26 @@ NOTE: Since this loads at boot it will be device 0 as opposed.
 * And choose for Audio Output Device ALSA:snd_rpi_hifiberry_dac, Analog
 * You may now test out if audio works. I downloaded a plugin called Radio for internet radio
 * However we will need to set this back to ALSA: Loopback(), Loopback PCM in order to test if Reactive LEDs work. Its ok, there is no sound yet.
+* 
 
 3. Installing Python 3.6
 * Ok so Python 3.5 comes pre-installed with OSMC, But LEDfx requires Python 3.6+, So we have to install Python 3.6. 
 WARNING: This process takes a long time, depending on Raspberry Pi. Took 40+ mins for me. So be mindful.
 Source below but I will summerise what I did.
-HERE
-
+* Prerequsities
+* `sudo apt-get install build-essential checkinstall`
+* `sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev`
+* Download Python 3.6
+* `cd /usr/src`
+* `sudo wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz`
+* `sudo tar xzf Python-3.6.9.tgz`
+* Compile Python Source
+* `cd Python-3.6.9`
+* `sudo ./configure --enable-optimizations` (Takes a while)
+* `sudo make install` (Takes even longer) (For my instalation i chose to use normal install instead of `sudo make altinstall`. Normal install replaces Python 3.5 with Python 3.6. I did that because I didn't want to deal with two Python instalations. But if you know/want to install Python 3.6 along side Python 3.5 then use `altinstall`. Just keep in mind that commands may be different for the following if you do. With that also said, i have not run into any issues yet with a python 3.6 install on osmc.
+* You can test if you have Python 3.6 by using `python3 -v` or `python3.6 -v` for alt install
 Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
-To install v3.6 of python
+
 
 4. Inatalling LEDfx (Mattallmighty branch) <-- Hyperlink his github
 * The reason for using Mattallmighty's branch instead of the one from ahodges9 (https://github.com/ahodges9/LedFx) is because it has been updated with a few more patterns and improvements/optimisations. You are free to simply use his version by using 
@@ -69,11 +80,13 @@ To install v3.6 of python
 
 * We have to update pip since we updated Python with `sudo pip3 install --upgrade pip`
 * Then we need to install setuptools that will build a python program `pip3 install -U setuptools`
+* Also download alsa-tools as it will be used for figuring out what device number is which device....
+* `sudo apt-get install alsa-tools`
 * This is a preqreuisite required for linux LEDfx `sudo apt-get install portaudio19-dev`
 * `pip3 install -r requirements.txt` to install any other requirements required for ledfx.
 * `sudo pip3 install .` to install/Create LEDfx(The dot is included)
 
-* Before starting we have to delete fadecandy python file due to error when starting ledfx
+* Before starting we have to delete fadecandy python file due to error when starting ledfx (This may not be needed in the future, You can test with simply trying to launch ledfx and looking if fadecandy.py causes an error)
 * `cd /usr/local/lib/python3.6/site-packages/ledfx/devices/`
 * `sudo rm fadecandy.py`
 
@@ -87,11 +100,23 @@ To install v3.6 of python
 * `sudo nano config.yaml` (You can press tab to finish off name in putty!) 
 *
 
+Iterate numbers in 
+audio:
+  device_index: 1
+Until you get some effects playing. This will tell you what loopback device it is using. Make sure your on effect energy(reactive) in LEDFX to see it clearly. 
+
 
 NOTE: I did this out of order due to errors that i went back and installed to fix. So this is hopefully the correct order of installing LEDfx with a new version of Python.
 
 A video tutorial of this for windows is done by ________ (https://www.youtube.com/watch?v=6AiMSeULZ08&feature=youtu.be)
 However some of the commands are applicble to Linux
+
+alsa-tools will be used for figuring out what device number is which device....
+`sudo apt-get install alsa-tools`
+
+`aplay -l`
+`arecord -l`
+
 
 How this works!?
 Ok so im no expert.
