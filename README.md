@@ -29,7 +29,7 @@ Software pre-requisites
 * Putty to ssh into it
 
 
-1. Load module at boot
+1. Load module at boot and implement sound profile in asoundrc
 In terminal (I used PUTTY)
 (`user:osmc\pass:osmc`) You should change password but perhaps after we are done configuring since we will need to restart many times)
 NOTE: Most of what we need to do must be done via ssh and not on the raspberry pi terminal. If you need to debug or access osmc terminal via pi, press esc when showing the ommc symbol on boot or OSMC exit.
@@ -37,6 +37,7 @@ NOTE: Most of what we need to do must be done via ssh and not on the raspberry p
 * Add `snd-aloop`
 * Save and close (Ctrl+X then Y then enter)
 * Reboot
+* Once the module is loaded you can validate it with `aplay -l` which 
 
 This will add loopback devices to all your current devices and load at boot. 
 NOTE: Since this loads at boot it will be device 0 as opposed.
