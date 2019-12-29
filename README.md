@@ -73,6 +73,7 @@ Source: http://www.6by9.net/output-to-multiple-audio-devices-with-alsa/
 * Restart OSMC
 * In OSMC menu, go to Settings/System/Audio
 * And choose for Audio Output Device ALSA:snd_rpi_hifiberry_dac, Analog
+* While also here, in the bottom left there is an option to change the amount of settings avalible to the user. This needs to be on expert to see a couple of settings we need to change. One of them is to turn on ‘send low volume noise’ if not already and 'Keep audio device alive' to always. This ensures it doesnt loose connection when audio isnt playing (This needs validation though). We also need to change 'Output Config' to 'Fixed in order to change the max to sample rate to 48000hz. We then set the resample quality to 'low(fast)' to lighten the load on cpu. This also stops audio playing at higher sample rates due to LEDfx only being able to take 48000hz sample rate for capture.
 * You may now test out if audio works. I downloaded a plugin called Radio for internet radio via osmc plugins.
 * We will need to change the audio device back to 'ALSA: Loopback(), Loopback PCM' in order to test if Reactive LEDs work. You should hear clicks when navigating through OSMC.
 
@@ -102,26 +103,24 @@ Source below but I will summarise what I did.
 Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 
 
-4. Installing LEDfx [Mattallmighty branch](https://github.com/Mattallmighty/LedFx)
-* The reason for using Mattallmighty's branch instead of the one from ahodges9 (https://github.com/ahodges9/LedFx) is because it has been updated with a few more patterns and improvements/optimisations. You are free to simply use adhodges version by using `pip3 install ledfx`. If so you can skip to Step 6 (You might 
+4. Installing LEDfx [Mattallmighty Fork](https://github.com/Mattallmighty/LedFx)
+* The reason for using Mattallmighty's Fork instead of the one from ahodges9 (https://github.com/ahodges9/LedFx) is because it has been updated with a few more patterns and improvements/optimisations. You are free to simply use adhodges version by using `pip3 install ledfx`. If so you can skip to Step 6 after doing `sudo pip3 install --upgrade pip`
 * We need to install GIT with `sudo apt-get install git`
 * We clone Mattallmighty's branch with `git clone https://github.com/Mattallmighty/LedFx.git`
-* We then go into the directory with `cd LedFx`
 
 * We have to update pip since we updated Python with `sudo pip3 install --upgrade pip`
 * Then we need to install setuptools that will build a python program `pip3 install -U setuptools`
-* Also download alsa-tools as it will be used for figuring out what device number is which device....
-* `sudo apt-get install alsa-tools`
 * This is a prerequisite required for linux LEDfx `sudo apt-get install portaudio19-dev`
+* We then go into the directory with `cd LedFx`
 * `pip3 install -r requirements.txt` to install any other requirements required for ledfx.
 * `sudo pip3 install .` to install/Create LEDfx(The dot is included)
 
-* Before starting we have to delete fadecandy python file due to error when starting ledfx (This may not be needed in the future, You can test with simply trying to launch ledfx and looking if fadecandy.py causes an error)
+* Before starting we have to delete fadecandy python file due to error when starting ledfx (This may not be a needed step in the future, You can test with simply trying to launch ledfx and looking if fadecandy.py causes an error)
 * `cd /usr/local/lib/python3.6/site-packages/ledfx/devices/`
 * `sudo rm fadecandy.py`
 
 5. Starting and Configuring LEDfx
-* `ledfx --open` to start LEDfx and create the config file and wait until it has booted (It will probably say something like couldn't recognise pcm devices, that's when you know its open.
+* `ledfx --open` to start LEDfx and create the config file and wait until it has booted (It will probably say something like couldn't recognise pcm devices, that's when you know its open or webserver active, 
 * In order to access the webui we must manually set the host in the config file that was just created
 * Ctrl+C to close LEDfx
 * `cd` to return to home directory
@@ -132,23 +131,21 @@ Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 `audio:
   device_index: 1`
 * This manually sets the capture device to use instead of default one, which for me didn't work. You may try it by leaving it out and opening ledfx. You will need to iterate through the numbers to get the right assuming your configuration is different to mine. Mine was set to 1. 
-* To access the webui from another computer (Which you will need as we can't from host OSMC machine) then you will need to set the host to `0.0.0.0` or the IP address of the machine.
+* To access the webui from another computer (Which you will need as we can't access it from host OSMC machine) then you will need to set the host to `0.0.0.0` or the IP address of the Raspberrt Pi.
 * Ok so close and save file and `ledfx --open`
-* Once loaded try accessing the page through your computer and now you should have ledfx up and running! But first we need to make sure it actually works and LEDs go flashy. First create a device and find which IP your WLED (Or whatever it is your using) which you can use the WLED app for. Again make sure your have configured WLED to use e1.31. You can also change a few settings in the advanced settings if you want. Also WLED needs to be powered on in app or web ui if it isn't :)
+* Once loaded try accessing the page through your computer and now you should have ledfx up and running! But first we need to make sure it actually works and LEDs go flashy. First create a device and find which IP your WLED (Or whatever it is your using) which you can use the WLED app for. Again make sure your have configured WLED to use e1.31. You can also change a few settings in the advanced settings if you want. Also WLED needs to be turned on in app or web ui if it isn't :)
 * You will want to make sure that you have the 'energy (reactive)' effect for music to actually see if you get anything some aren't as reactive at default. 
 * Start playing music on OSMC and see if you can see the LEDs flash.
 
 * You may of noticed that you will need to close and open LEDfx if you don't/want to use it. You can automate this process with various home automations like node-red, however I won't go into that here. Yet?
-
-NOTE: I did this out of order due to errors that I went back and installed to fix. So this is hopefully the correct order of installing LEDfx with a new version of Python.
-
 A video tutorial of this for windows is done by Gabriel Dahl (https://www.youtube.com/watch?v=6AiMSeULZ08&feature=youtu.be)
 However some of the commands are applicable to Linux
 
+NOTE: I did this out of order due to errors that I went back and installed to fix. So this is hopefully the correct order of installing LEDfx with a new version of Python. Please forgive me if you encounter problems due to some misinformation.
 
 How this works!?
 Ok so i'm no expert.
-Few things to consider, snd_aloop module creates a loopback device for EVERY device you have. All we are doing is duplicating or splitting audio through multi(?) and connecting it to the hardware loopback so we can listen to the same audio we are sending out to the capture.
+Few things to consider, snd_aloop module creates a loopback device for EVERY device you have. All we are doing is duplicating or splitting audio through multi(?) and connecting it to the hardware device so we can listen to the same audio we are sending out to the capture.
 Like I said there is more than likely room for improvement and if you discover anything that can improve performance whether that's using jack or something else, please let us know.
 
 Extra Optimisations?
