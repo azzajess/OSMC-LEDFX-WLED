@@ -24,7 +24,7 @@ Hardware pre-requisites
 
 
 Software pre-requisites
-* WLED on esp(https://github.com/Aircoookie/WLED) with E1.31 enabled
+* WLED on esp(https://github.com/Aircoookie/WLED) with E1.31 enabled (https://github.com/Aircoookie/WLED/wiki/E1.31-&-UDP-Realtime-Control)
 * OSMC on Raspberry Pi (https://osmc.tv/download/) (Click disk images down the bottom to download Pi image depnding on the device you own
 * Putty to ssh into it
 
@@ -98,17 +98,23 @@ Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 * `cd .ledfx` to navigate to ledfx directory where config is stored
 * `ls` to ensure that a config file is there
 * `sudo nano config.yaml` (You can press tab to finish off name in putty!) 
-*
+* Here we will be changing a few options. At the verry begining of the list add this in 
+`audio:
+  device_index: 1`
+* This manually sets the capture device to use instead of default one, which for me didnt work. You may try it by leaving it out and opening ledfx. You will need to iterate through the numbers to get the right assuming your configuration is different to mine. Mine was set to 1. 
+* To access the webui from another copmuter (Which you will need as we can't from host osmc machine) then you will need to set the host to `0.0.0.0` or the IP address of the machine.
+* Ok so close and save file and `ledfx --open`
+* Once loaded try accessing the page through your computer and now you should have ledfx up and running! But first we need to make sure it actually works and LEDs go flashy. First create a device and find which IP your WLED (Or whatever it is your using) which you can use the wled app for. Again make sure your have configured WLED to use e1.31. You can also change a few settings in the advanced settings if you want. Also WLED needs to be powered on in app or web ui if it isnt :)
+* You will want to make sure that you have the 'energy (reactive)' effect for music to actually see if you get anything some arnt as reactive at default. 
+* Start playing music on osmc and see if you can see the LEDs flash.
 
-Iterate numbers in 
-audio:
-  device_index: 1
-Until you get some effects playing. This will tell you what loopback device it is using. Make sure your on effect energy(reactive) in LEDFX to see it clearly. 
+* You may of noticed that you will need to close and open LEDfx if you dont/want to use it. You can automate this process with various home automations like node-red, however I wont go into that here. Yet?
+
 
 
 NOTE: I did this out of order due to errors that i went back and installed to fix. So this is hopefully the correct order of installing LEDfx with a new version of Python.
 
-A video tutorial of this for windows is done by ________ (https://www.youtube.com/watch?v=6AiMSeULZ08&feature=youtu.be)
+A video tutorial of this for windows is done by Gabriel Dahl (https://www.youtube.com/watch?v=6AiMSeULZ08&feature=youtu.be)
 However some of the commands are applicble to Linux
 
 alsa-tools will be used for figuring out what device number is which device....
@@ -116,7 +122,7 @@ alsa-tools will be used for figuring out what device number is which device....
 
 `aplay -l`
 `arecord -l`
-
+`alsamixer` (Note for aslsamixer in Putty you need to use the function keys which normally set to some other command. You have to go to Putty settings, Terminal, Keypad and select 'Xterm R6'. For me I had to set this everytime I opened Putty or created a new session.
 
 How this works!?
 Ok so im no expert.
