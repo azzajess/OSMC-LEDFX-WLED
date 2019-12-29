@@ -1,9 +1,9 @@
 # OSMC-LEDFX-WLED
-OSMC with LEDFX and WLED
+OSMC with LEDFX and WLED (or any other compaitble esp firmware!)
 
 Hi all. So this is a short-ish tutorial for getting LEDFX to work with OSMC on a Raspberry Pi.
 
-Now a note to all, I used a raspberry pi zero and a pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and i reccomend that you choose a more powerful raspberry pi for this project. 
+Now a note to all, I used a raspberry pi zero and a pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and i reccomend that you choose a more powerful raspberry pi for this project, if you can.
 Also to note that some of these options will be different depending the type of device you have and the configuration. An example of this is if you have the inbuilt audio out in raspberry pi 1,2,3 etc and will affect the numbering of some configurations
 
 I will do my best to demonstrate this to you. Im no expert with Linux audio.
@@ -33,14 +33,27 @@ Software pre-requisites
 In terminal (I used PUTTY)
 (`user:osmc\pass:osmc`) You should change password but perhaps after we are done configuring since we will need to restart many times)
 NOTE: Most of what we need to do must be done via ssh and not on the raspberry pi terminal. If you need to debug or access osmc terminal via pi, press esc when showing the ommc symbol on boot or OSMC exit.
+* alsa-tools will be used for figuring out what device number is which device.
+* `sudo apt-get install alsa-tools`
+* `aplay -l` to list playback devices
+* `arecord -l` to list capture devices
+* `alsamixer` (Note for aslsamixer in Putty you need to use the function keys which normally set to some other command. You have to go to Putty settings, Terminal, Keypad and select 'Xterm R6'. For me I had to set this everytime I opened Putty or created a new session.
 * `sudo cd nano /etc/modules`
 * Add `snd-aloop`
-* Save and close (Ctrl+X then Y then enter)
+* Save and close
 * Reboot
-* Once the module is loaded you can validate it with `aplay -l` which 
-
-This will add loopback devices to all your current devices and load at boot. 
+* Once the module is loaded you can validate it with `aplay -l` which should list a loopback device. This will add loopback devices to all your current devices and load at boot. 
 NOTE: Since this loads at boot it will be device 0 as opposed.
+* lets configure the asoundrc which allows us to specify how the devices interact with each other.
+* `sudo nano ~/.asoundrc`
+* Copy and paste info from asounrc config (https://github.com/azzajess/OSMC-LEDFX-WLED/blob/master/.asoundrc)
+* NOTE before continuing there are a few things to change in order to match your configuration, as it may be slightly different to mine. The only two options that need to be edited is `hw:0,0' and 'hw:1,0`. Hardware 0,0 is the loopback device created by snd-aloop. Hardware 1,0 is the pcm5102(hifi berry dac overlay) that is listed in `aplay -l` as number 1 because snd-aloop is loaded at boot before dac overlay.
+* If you have noticed that there is a lot of subdevices that we wont be using. I believe the subdevices are used for more than app. To change the amount we can 
+* Save and reboot.
+* This config will allow 
+
+Source: http://www.6by9.net/output-to-multiple-audio-devices-with-alsa/
+
 
 2. OSMC configuring
 * In osmc go to ‘my osmc’
@@ -51,8 +64,13 @@ NOTE: Since this loads at boot it will be device 0 as opposed.
 * In OSMC menu, go to Settings/System/Audio
 * And choose for Audio Output Device ALSA:snd_rpi_hifiberry_dac, Analog
 * You may now test out if audio works. I downloaded a plugin called Radio for internet radio
-* However we will need to set this back to ALSA: Loopback(), Loopback PCM in order to test if Reactive LEDs work. Its ok, there is no sound yet.
-* 
+* However we will need to set this back to ALSA: Loopback(), Loopback PCM in order to test if Reactive LEDs work. You should hear clicks when navigating through OSMC.
+
+* Verifying it works!
+* From osmc home via ssh `cd Music`. This is the folder for music we will be recording a sample in order to listen and verfy audio is being captured.
+* In OSMC via monitor play some music via the Loopback pcm audio device (This should be set already)
+* `arecord -D hw:0,0 -d 30 -f S16_LE test.wav`
+* After it is done, in OSMC navigate to music and back out of cuurent music folder (backspace) and open the file you created and listen to see if that is what you were playing when recording.
 
 3. Installing Python 3.6
 * Ok so Python 3.5 comes pre-installed with OSMC, But LEDfx requires Python 3.6+, So we have to install Python 3.6. 
@@ -111,19 +129,11 @@ Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 
 * You may of noticed that you will need to close and open LEDfx if you dont/want to use it. You can automate this process with various home automations like node-red, however I wont go into that here. Yet?
 
-
-
 NOTE: I did this out of order due to errors that i went back and installed to fix. So this is hopefully the correct order of installing LEDfx with a new version of Python.
 
 A video tutorial of this for windows is done by Gabriel Dahl (https://www.youtube.com/watch?v=6AiMSeULZ08&feature=youtu.be)
 However some of the commands are applicble to Linux
 
-alsa-tools will be used for figuring out what device number is which device....
-`sudo apt-get install alsa-tools`
-
-`aplay -l`
-`arecord -l`
-`alsamixer` (Note for aslsamixer in Putty you need to use the function keys which normally set to some other command. You have to go to Putty settings, Terminal, Keypad and select 'Xterm R6'. For me I had to set this everytime I opened Putty or created a new session.
 
 How this works!?
 Ok so im no expert.
