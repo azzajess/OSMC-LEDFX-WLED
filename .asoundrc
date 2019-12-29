@@ -2,8 +2,8 @@ pcm.both {
   type route;
   slave.pcm {
       type multi;
-      slaves.a.pcm "sblive";
-      slaves.b.pcm "onboard";
+      slaves.a.pcm "hw:0,0";
+      slaves.b.pcm "hw:1,0";
       slaves.a.channels 2;
       slaves.b.channels 2;
       bindings.0.slave a;
