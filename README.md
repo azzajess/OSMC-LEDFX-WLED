@@ -51,16 +51,15 @@ NOTE: Since this loads at boot it will be device 0 as opposed.
 * NOTE before continuing there are a few things to change in order to match your configuration, as it may be slightly different to mine. The only two options that need to be edited is `hw:0,0' and 'hw:1,0`. Hardware 0,0 is the loopback device created by snd-aloop. Hardware 1,0 is the pcm5102(hifi berry dac overlay) that is listed in `aplay -l` as number 1 because snd-aloop is loaded at boot before dac overlay.
 * If you have noticed that there is a lot of subdevices that we won't be using. I believe the subdevices are used for more than app. To change the amount we can use `sudo nano /etc/modprobe.d/sound.conf`
 Assign spot and also reduce number of substreams to 2 for loopback
-`
-
+```
 alias snd-card-0 snd-aloop
 alias snd-card-1 snd-pcm5102
 
 options snd-aloop index=0 pcm_substreams=2
 options snd-pcm5102 index=1
-`
+```
 * Save and reboot.
-* This config will allow 
+* This config will assign snd card value(?) and reduce loopback substreams to 2.
 
 Source: http://www.6by9.net/output-to-multiple-audio-devices-with-alsa/
 
