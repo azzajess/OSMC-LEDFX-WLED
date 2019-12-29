@@ -3,7 +3,7 @@ OSMC with LEDfx and WLED (or any other compatible esp firmware!)
 
 Hi all. So this is a short-ish tutorial for getting LEDFX to work with OSMC on a Raspberry Pi.
 
-Now a note to all, I used a raspberry pi zero and a pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and I recommend that you choose a more powerful raspberry pi for this project, if you can.
+Now a note to all, I used a Raspberry Pi Zero and a pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and I recommend that you choose a more powerful Raspberry Pi for this project, if you can.
 Also to note that some of these options will be different depending on the type of device you have and the configuration. An example of this is if you have the inbuilt audio out in raspberry pi 1,2,3 etc and will affect the numbering of some configurations
 
 I will do my best to demonstrate this to you. I'm no expert with Linux audio.
@@ -32,7 +32,7 @@ Software prerequisites
 1. Load module at boot and implement sound profile in asoundrc
 In terminal (I used PUTTY)
 (`user:OSMC\pass:OSMC`) You should change the password but perhaps after we are done configuring since we will need to restart many times)
-NOTE: Most of what we need to do must be done via ssh and not on the raspberry pi terminal. If you need to debug or access OSMC terminal via pi, press esc when showing the ommc symbol on boot or OSMC exit.
+NOTE: Most of what we need to do must be done via ssh and not on the raspberry pi terminal. If you need to debug or access OSMC terminal via pi, press esc when showing the blue ommc symbol on boot or OSMC exit.
 * alsa-tools will be used for figuring out what device number is which device.
 * `sudo apt-get install alsa-tools`
 * `aplay -l` to list playback devices
@@ -44,12 +44,13 @@ NOTE: Most of what we need to do must be done via ssh and not on the raspberry p
 * Reboot
 * You can verify snd_aloop has been loaded with `sudo lsmod |grep snd_aloop`.
 * Once the module is loaded you can validate it with `aplay -l` which should list a loopback device. This will add loopback devices to all your current devices and load at boot. 
-NOTE: Since this loads at boot it will be device 0 as opposed.
-* lets configure the asoundrc which allows us to specify how the devices interact with each other.
+NOTE: Since this loads at boot it will be device 0 and everything will come after
+* Note those numbers! 0 = hw:0,0, 1 = hw:1,0, 2 = hw:2,0 etc
+* Lets configure the asoundrc which allows us to specify how the devices interact with each other.
 * `sudo nano ~/.asoundrc`
 * Copy and paste the info from asounrc config (https://github.com/azzajess/OSMC-LEDFX-WLED/blob/master/.asoundrc)
-* NOTE before continuing there are a few things to change in order to match your configuration, as it may be slightly different to mine. The only two options that need to be edited is `hw:0,0' and 'hw:1,0`. Hardware 0,0 is the loopback device created by snd-aloop. Hardware 1,0 is the pcm5102(hifi berry dac overlay) that is listed in `aplay -l` as number 1 because snd-aloop is loaded at boot before dac overlay.
-* If you have noticed that there is a lot of subdevices that we won't be using. I believe the subdevices are used for more than app. To change the amount we can use `sudo nano /etc/modprobe.d/sound.conf`
+* NOTE before continuing there are a few things to change in order to match your configuration, as it may be slightly different to mine. The only two options that need to be edited is `hw:0,0` and `hw:1,0`. Hardware 0,0 is the loopback device created by snd-aloop. Hardware 1,0 is the pcm5102(hifi berry dac overlay) that is listed in `aplay -l` as number 1 because snd-aloop is loaded at boot before dac overlay. This may be different depending on your configuration of devices.
+* If you have noticed that there is a lot of subdevices that we won't be using. I believe the subdevices are used for more than one app at a time. To change the amount we can use `sudo nano /etc/modprobe.d/sound.conf`
 Assign spot and also reduce number of substreams to 2 for loopback
 ```
 alias snd-card-0 snd-aloop
@@ -59,7 +60,7 @@ options snd-aloop index=0 pcm_substreams=2
 options snd-pcm5102 index=1
 ```
 * Save and reboot.
-* This config will assign snd card value(?) and reduce loopback substreams to 2.
+* This config will assign snd card value(?) and reduce loopback substreams to 2. 
 
 Source: http://www.6by9.net/output-to-multiple-audio-devices-with-alsa/
 
@@ -72,9 +73,10 @@ Source: http://www.6by9.net/output-to-multiple-audio-devices-with-alsa/
 * Restart OSMC
 * In OSMC menu, go to Settings/System/Audio
 * And choose for Audio Output Device ALSA:snd_rpi_hifiberry_dac, Analog
-* You may now test out if audio works. I downloaded a plugin called Radio for internet radio
-* However we will need to set this back to ALSA: Loopback(), Loopback PCM in order to test if Reactive LEDs work. You should hear clicks when navigating through OSMC.
+* You may now test out if audio works. I downloaded a plugin called Radio for internet radio via osmc plugins.
+* We will need to change the audio device back to 'ALSA: Loopback(), Loopback PCM' in order to test if Reactive LEDs work. You should hear clicks when navigating through OSMC.
 
+Need to verify following...
 * Verifying it works!
 * From OSMC home via ssh `cd Music`. This is the folder for music we will be recording a sample in order to listen and verify audio is being captured.
 * In OSMC via monitor play some music via the Loopback pcm audio device (This should be set already)
@@ -100,8 +102,8 @@ Source below but I will summarise what I did.
 Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 
 
-4. Installing LEDfx (Mattallmighty branch) <-- Hyperlink his github
-* The reason for using Mattallmighty's branch instead of the one from ahodges9 (https://github.com/ahodges9/LedFx) is because it has been updated with a few more patterns and improvements/optimisations. You are free to simply use his version by using 
+4. Installing LEDfx [Mattallmighty branch](https://github.com/Mattallmighty/LedFx)
+* The reason for using Mattallmighty's branch instead of the one from ahodges9 (https://github.com/ahodges9/LedFx) is because it has been updated with a few more patterns and improvements/optimisations. You are free to simply use adhodges version by using `pip3 install ledfx`. If so you can skip to Step 6 (You might 
 * We need to install GIT with `sudo apt-get install git`
 * We clone Mattallmighty's branch with `git clone https://github.com/Mattallmighty/LedFx.git`
 * We then go into the directory with `cd LedFx`
