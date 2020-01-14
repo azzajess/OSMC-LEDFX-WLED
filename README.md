@@ -73,7 +73,7 @@ Source: http://www.6by9.net/output-to-multiple-audio-devices-with-alsa/
 * Restart OSMC
 * In OSMC menu, go to Settings/System/Audio
 * And choose for Audio Output Device ALSA:snd_rpi_hifiberry_dac, Analog
-* While also here, in the bottom left there is an option to change the amount of settings avalible to the user. This needs to be on expert to see a couple of settings we need to change. One of them is to turn on ‘send low volume noise’ if not already and 'Keep audio device alive' to always. This ensures it doesnt loose connection when audio isnt playing (This needs validation though). We also need to change 'Output Config' to 'Fixed in order to change the max to sample rate to 48000hz. We then set the resample quality to 'low(fast)' to lighten the load on cpu. This also stops audio playing at higher sample rates due to LEDfx only being able to take 48000hz sample rate for capture.
+* While also here, in the bottom left there is an option to change the amount of settings avalible to the user. This needs to be on expert to see a couple of settings we need to change. One of them is to turn on ‘send low volume noise’ if not already and 'Keep audio device alive' to always. This ensures it doesnt loose connection when audio isnt playing (This needs validation though). We also need to change 'Output Config' to 'Fixed in order to change the max to sample rate to 44100hz. We then set the resample quality to 'low(fast)' to lighten the load on cpu. 
 * You may now test out if audio works. I downloaded a plugin called Radio for internet radio via osmc plugins.
 * We will need to change the audio device back to 'ALSA: Loopback(), Loopback PCM' in order to test if Reactive LEDs work. You should hear clicks when navigating through OSMC.
 
@@ -129,8 +129,9 @@ Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 * `sudo nano config.yaml` (You can press tab to finish off name in putty!) 
 * Here we will be changing a few options. At the very beginning of the list add this in 
 `audio:
-  device_index: 1`
-* This manually sets the capture device to use instead of default one, which for me didn't work. You may try it by leaving it out and opening ledfx. You will need to iterate through the numbers to get the right assuming your configuration is different to mine. Mine was set to 1. 
+  device_index: 1
+  mic_rate: 44100`
+* This manually sets the capture device to use instead of default one, which for me didn't work. You may try it by leaving it out and opening ledfx. You will need to iterate through the numbers to get the right assuming your configuration is different to mine. Mine was set to 1. The mic rate forces the capture device to take in 44100hz input which matches osmc settgngs we set eariler.
 * To access the webui from another computer (Which you will need as we can't access it from host OSMC machine) then you will need to set the host to `0.0.0.0` or the IP address of the Raspberrt Pi.
 * Ok so close and save file and `ledfx --open`
 * Once loaded try accessing the page through your computer and now you should have ledfx up and running! But first we need to make sure it actually works and LEDs go flashy. First create a device and find which IP your WLED (Or whatever it is your using) which you can use the WLED app for. Again make sure your have configured WLED to use e1.31. You can also change a few settings in the advanced settings if you want. Also WLED needs to be turned on in app or web ui if it isn't :)
