@@ -18,7 +18,7 @@ NOTE: Since this loads at boot it will be device 0 and everything will come afte
 * Note those numbers! 0 = hw:0,0, 1 = hw:1,0, 2 = hw:2,0 etc
 * Lets configure the asoundrc which allows us to specify how the devices interact with each other.
 * `sudo nano ~/.asoundrc`
-* Copy and paste the info from asounrc config (https://github.com/azzajess/OSMC-LEDFX-WLED/blob/master/.asoundrc)
+* [Copy and paste the info from asounrc config](ALSA%20Sound%20Profiles/Multi/Raspberry%20Pi%200%20+%20PCM5102/.asoundrc)
 * NOTE before continuing there are a few things to change in order to match your configuration, as it may be slightly different to mine. The only two options that need to be edited is `hw:0,0` and `hw:1,0`. Hardware 0,0 is the loopback device created by snd-aloop. Hardware 1,0 is the pcm5102(hifi berry dac overlay) that is listed in `aplay -l` as number 1 because snd-aloop is loaded at boot before dac overlay. This may be different depending on your configuration of devices.
 * If you have noticed that there is a lot of subdevices that we won't be using. I believe the subdevices are used for more than one app at a time. To change the amount we can use `sudo nano /etc/modprobe.d/sound.conf`
 Assign spot and also reduce number of substreams to 2 for loopback
