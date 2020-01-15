@@ -14,7 +14,9 @@ HERE
 * You may now test out if audio works. I downloaded a plugin called Radio for internet radio via osmc plugins.
 * We will need to change the audio device back to 'ALSA: Loopback(), Loopback PCM' in order to test if Reactive LEDs work. You should hear clicks when navigating through OSMC. (Remember, to choose 'ALSA: Loopback(), Loopback PCM' and not the default)
 
----------The Following doesnt currently work--------------
+The Following doesnt currently work
+-----------------------
+
 Need to verify following...
 * Verifying it works! Play some music or flick around the menu on osmc so that audio is being played through the LoopbackPCM
 * From OSMC home via ssh `cd Music`. This is the folder for music we will be recording a sample in order to listen and verify audio is being captured.
