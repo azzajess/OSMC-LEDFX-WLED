@@ -49,9 +49,11 @@ We have a few options depending on the route you would like to take.
 
 Recommended
 ahodges9 Master (https://github.com/ahodges9/LedFx/)
+
 [Instructions](LEDfx%20Installations/ahodges9%20Master.md)
 
 Mattallmighty Fork (https://github.com/Mattallmighty/LedFx)
+
 [Instructions](LEDfx%20Installations/Mattallmighty%20Fork.md)
 
 
