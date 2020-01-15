@@ -8,7 +8,7 @@ NOTE: Most of what we need to do must be done via ssh and not on the raspberry p
 * `aplay -l` to list playback devices
 * `arecord -l` to list capture devices
 * `alsamixer` (Note for aslsamixer in Putty you need to use the function keys which normally set to some other command. You have to go to Putty settings, Terminal, Keypad and select 'Xterm R6'. For me I had to set this every time I opened Putty or created a new session.
-* `sudo cd nano /etc/modules`
+* `sudo nano /etc/modules`
 * Add `snd-aloop`
 * Save and close
 * Reboot
