@@ -8,9 +8,11 @@
 * `ls` to ensure that a config file is there
 * `sudo nano config.yaml` (You can press tab to finish off name in putty!) 
 * Here we will be changing a few options. At the very beginning of the list add this in 
-`audio:
+```
+audio:
   device_index: 1
-  mic_rate: 44100`
+  mic_rate: 44100
+ ```
 * This manually sets the capture device to use instead of default one, which for me didn't work. You may try it by leaving it out and opening ledfx. You will need to iterate through the numbers to get the right assuming your configuration is different to mine. Mine was set to 1. The mic rate forces the capture device to take in 44100hz input which matches osmc settgngs we set eariler.
 * To access the webui from another computer (Which you will need as we can't access it from host OSMC machine) then you will need to set the host to `0.0.0.0` or the IP address of the Raspberrt Pi.
 * Ok so close and save file and `ledfx --open`
