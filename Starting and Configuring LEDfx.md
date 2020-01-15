@@ -14,7 +14,7 @@ audio:
   mic_rate: 44100
  ```
 * This manually sets the capture device to use instead of default one, which for me didn't work. You may try it by leaving it out and opening ledfx. You will need to iterate through the numbers to get the right assuming your configuration is different to mine. Mine was set to 1. The mic rate forces the capture device to take in 44100hz input which matches osmc settgngs we set eariler.
-* To access the webui from another computer (Which you will need as we can't access it from host OSMC machine) then you will need to set the host to `0.0.0.0` or the IP address of the Raspberrt Pi.
+* To access the webui from another computer (Which you will need as we can't access it from host OSMC machine) then you will need to add the host to `hosts:0.0.0.0` or the IP address of the Raspberrt Pi.
 * Ok so close and save file and `ledfx --open`
 * Once loaded try accessing the page through your computer and now you should have ledfx up and running! But first we need to make sure it actually works and LEDs go flashy. First create a device and find which IP your WLED (Or whatever it is your using) which you can use the WLED app for. Again make sure your have configured WLED to use e1.31. You can also change a few settings in the advanced settings if you want. Also WLED needs to be turned on in app or web ui if it isn't :)
 * You will want to make sure that you have the 'energy (reactive)' effect for music to actually see if you get anything some aren't as reactive at default. 
