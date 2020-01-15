@@ -11,7 +11,7 @@ Source below but I will summarise what I did.
 * `sudo tar xzf Python-3.6.9.tgz`
 * Compile Python Source
 * `cd Python-3.6.9`
-* `sudo ./configure --enable-optimizations` (Takes a while)
-* `sudo make install` (Takes even longer) (For my installation I chose to use normal install instead of `sudo make altinstall`. Normal install replaces Python 3.5 with Python 3.6. I did that because I didn't want to deal with two Python installations. But if you know/want to install Python 3.6 along side Python 3.5 then use `altinstall`. Just keep in mind that commands may be different for the following if you do. With that said, I have not run into any issues yet with a python 3.6 install on OSMC.
+* `sudo ./configure --enable-optimizations` (Takes a while on pi zero)
+* `sudo make install` (Takes even longer on pi zero) (For my installation I chose to use normal install instead of `sudo make altinstall`. Normal install replaces Python 3.5 with Python 3.6. I did that because I didn't want to deal with two Python installations. But if you know/want to install Python 3.6 along side Python 3.5 then use `altinstall`. Just keep in mind that commands may be different for the following if you do. With that said, I have not run into any issues yet with a python 3.6 install on OSMC.
 * You can test if you have Python 3.6 by using `python3 -v` or `python3.6 -v` for alt install
 Source: https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
