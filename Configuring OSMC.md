@@ -19,4 +19,5 @@ Need to verify following...
 
 
 
-[Next Step, Installing Python 3.6](Installing Python 3.6.md)
+[Next Step, Installing Python 3.6](Installing%20Python%203.6.md)
+
