@@ -4,7 +4,7 @@ In terminal (I used PUTTY)
 (`user:OSMC\pass:OSMC`) You should change the password but perhaps after we are done configuring since we will need to restart many times)
 NOTE: Most of what we need to do must be done via ssh and not on the raspberry pi terminal. If you need to debug or access OSMC terminal via pi, press esc when showing the blue ommc symbol on boot or OSMC exit.
 * alsa-tools will be used for figuring out what device number is which device.
-* `sudo apt-get install alsa-tools`
+* `sudo apt-get install alsa-utils`
 * `aplay -l` to list playback devices
 * `arecord -l` to list capture devices
 * `alsamixer` (Note for aslsamixer in Putty you need to use the function keys which normally set to some other command. You have to go to Putty settings, Terminal, Keypad and select 'Xterm R6'. For me I had to set this every time I opened Putty or created a new session.
