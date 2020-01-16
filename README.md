@@ -37,27 +37,28 @@ Choose the Raspberry Pi config that suits your needs.
 * [If your using a Raspberry Pi 3 with PCM5102]()
 
 
-[2. OSMC configuring](Configuring%20OSMC.md)
+2. [OSMC configuring](Configuring%20OSMC.md)
 
 
-[3. Installing Python 3.6](Installing%20Python%203.6.md)
+3. [Installing Python 3.6](Installing%20Python%203.6.md)
 
 
 4. Installing LEDfx
 
-We have a few options depending on the route you would like to take.
 
-Recommended
-ahodges9 Master (https://github.com/ahodges9/LedFx/)
+8 We have a few options depending on the route you would like to take.
 
-[Instructions](LEDfx%20Installations/ahodges9%20Master.md)
+* Recommended
+* ahodges9 Master (https://github.com/ahodges9/LedFx/)
 
-Mattallmighty Fork (https://github.com/Mattallmighty/LedFx)
+* [Instructions](LEDfx%20Installations/ahodges9%20Master.md)
 
-[Instructions](LEDfx%20Installations/Mattallmighty%20Fork.md)
+* Mattallmighty Fork (https://github.com/Mattallmighty/LedFx)
+
+* [Instructions](LEDfx%20Installations/Mattallmighty%20Fork.md)
 
 
-[5. Starting and Configuring LEDfx](Starting%20and%20Configuring%20LEDfx.md)
+5. [Starting and Configuring LEDfx](Starting%20and%20Configuring%20LEDfx.md)
 
 NOTE: I did this out of order due to errors that I went back and installed to fix. So this is hopefully the correct order of installing LEDfx with a new version of Python. Please forgive me if you encounter problems due to some misinformation.
 
