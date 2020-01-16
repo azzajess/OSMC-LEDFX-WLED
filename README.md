@@ -1,9 +1,9 @@
 # OSMC-LEDFX-WLED
 OSMC with LEDfx and WLED (or any other compatible esp firmware!)
 
-Hi all. So this is a short-ish tutorial for getting LEDFX to work with OSMC on a Raspberry Pi.
+Hi all. So this is a short-ish tutorial for getting LEDFX to work with OSMC on a Raspberry Pi. Just to note that as of yet, OSMC isnt supported on raspberry pi 4. Perhaps using another Kodi type like libreelec will work for Pi 4.
 
-Now a note to all, I used a Raspberry Pi Zero and a pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and I recommend that you choose a more powerful Raspberry Pi for this project, if you can.
+Now a note to all, This is has been tested on a Raspberry Pi Zero and Raspberry Pi 3 with pcm5102 dac board for this project. Although it worked the raspberry pi zero is not powerful and I recommend that you choose a more powerful Raspberry Pi for this project, if you can.
 Also to note that some of these options will be different depending on the type of device you have and the configuration. An example of this is if you have the inbuilt audio out in raspberry pi 1,2,3 etc and will affect the numbering of some configurations
 
 I will do my best to demonstrate this to you. I'm no expert with Linux audio.
