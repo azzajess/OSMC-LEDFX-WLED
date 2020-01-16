@@ -68,5 +68,5 @@ Like I said there is more than likely room for improvement and if you discover a
 
 Extra Optimisations?
 * I reduced the resolution of OSMC to 720 for testing purposes
-* I lowered the GPU memory in My OSMC/Pi-Config to 64MB since I won't be using a display. Even at 64MB it was usable so this would mostly affect video content?
+* I lowered the GPU memory in My OSMC/Pi-Config to 64MB since I won't be using a display. Even at 64MB it was usable so this would mostly affect video content? NOTE: changing vram to 64MB causes the PLEX addon not to work. It must be at least 128MB, to sign in at least...
 * Not sure if any of this makes a difference considering that that OSMC + LEDFX is CPU intensive.
