@@ -34,7 +34,7 @@ Choose the Raspberry Pi config that suits your needs.
 
 * [If your using a Raspberry Pi Zero with PCM5102](Raspberry%20Pi/Raspberry%20Pi%20Zero%20%2B%20PCM5102.md)
 * [If your using a Raspberry Pi 3 with inbuilt audio out](Raspberry%20Pi/Raspberry%20Pi%203.md)
-* [If your using a Raspberry Pi 3 with PCM5102]()
+* [If your using a Raspberry Pi 3 with PCM5102]() (Pi3 is config is pretty similar to pi zero config, so use that for now)
 
 
 2. [OSMC configuring](Configuring%20OSMC.md)
