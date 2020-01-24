@@ -13,8 +13,7 @@ Just keep in mind that at the time of writing these instructions, This was the m
 `sudo pip3 install ledfx`
 That should install all required dependencies
 
-* Before starting we have to delete fadecandy python file due to error when starting ledfx (This may not be a needed step in the future, You can test with simply trying to launch ledfx and looking if fadecandy.py causes an error)
-* `cd /usr/local/lib/python3.6/site-packages/ledfx/devices/`
-* `sudo rm fadecandy.py`
+* If you would like to upgrade LEDfx use `pip install ledfx --upgrade`
+* You can check which version you are currently running with `ledfx --version`
 
 [Final step, Starting and Configuring LEDfx](/Starting%20and%20Configuring%20LEDfx.md)
