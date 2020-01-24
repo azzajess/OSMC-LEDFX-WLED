@@ -46,8 +46,8 @@ Choose the Raspberry Pi config that suits your needs.
 4. Installing LEDfx
 * We have a few options depending on the route you would like to take.
 
-* Recommended
-* ahodges9 Master (https://github.com/ahodges9/LedFx/)
+
+* ahodges9 Master (https://github.com/ahodges9/LedFx/) (Recommended, Most up to date)
 
 * [Instructions](LEDfx%20Installations/ahodges9%20Master.md)
 
