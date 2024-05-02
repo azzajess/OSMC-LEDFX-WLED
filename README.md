@@ -1,4 +1,5 @@
 # OSMC-LEDFX-WLED
+## May be outdated information as this was done a while ago.
 OSMC with LEDfx and WLED (or any other compatible esp firmware!)
 
 Hi all. So this is a short-ish tutorial for getting LEDFX to work with OSMC on a Raspberry Pi. Just to note that as of yet, OSMC isnt supported on raspberry pi 4. Perhaps using another Kodi type like libreelec will work for Pi 4.
